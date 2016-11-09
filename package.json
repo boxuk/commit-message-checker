@@ -6,6 +6,9 @@
   "scripts": {
     "test": "mocha test/**/*.js && eslint *.js"
   },
+  "bin": {
+    "travis-commit-message-checker": "./tools/travis-commit-message-checker.js"
+  },
   "author": "Box UK <https://www.boxuk.com>",
   "license": "ISC",
   "devDependencies": {

@@ -14,24 +14,23 @@ function resultFormatter (commitMessage, commitMessageCheckResult) {
         return;
     }
 
-    const output = `========================
+    let output = `========================
 
-        The following commit message failed validation. The reasons why it failed ` +
-        `are shown below the commit message.
+The following commit message failed validation. The reasons why it failed ` +
+`are shown below the commit message.
 
-        """
-        ${commitMessage}
-        """
+"""
+${commitMessage}
+"""
 
-        Failure reasons:
-        ================
-
+Failure reasons:
+================
         `;
 
     for (const failure of commitMessageCheckResult.failures) {
         const explanation = FAILURE_EXPLANATIONS[failure];
 
-        output.push(`- "${failure}": ${explanation}`);
+        output = output += `\n- "${failure}": ${explanation}\n`;
     }
 
     return output;
