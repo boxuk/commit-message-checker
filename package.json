@@ -1,0 +1,19 @@
+{
+  "name": "commit-message-checker",
+  "version": "0.0.0",
+  "description": "Tool for checking commit message format",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/**/*.js && eslint *.js"
+  },
+  "author": "Box UK <https://www.boxuk.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.9.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.3.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "mocha": "^3.1.2"
+  }
+}
