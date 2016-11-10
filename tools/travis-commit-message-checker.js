@@ -10,7 +10,7 @@ const reporter = require('../reporter').resultFormatter;
 
 // Currently we only test PR builds, where we get the HEAD commit.
 
-const isPullRequest = process.env['TRAVIS_PULL_REQUEST'] === 'true';
+const isPullRequest = process.env['TRAVIS_PULL_REQUEST'] !== 'false';
 
 if (!isPullRequest) {
     console.log('Not checking commit message as this is not a pull-request build');
