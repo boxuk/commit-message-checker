@@ -70,13 +70,27 @@ Registrations are not currently supported and will be addressed in J#PROJ-988.
 
 ## Usage
 
+### As part of CI
+
+#### Travis
+
+- Install this package as a dependency of your project
+
+- In your `.travis.yml` file, include the following in your `script` section:
+
+```yml
+- node_modules/.bin/travis-commit-message-checker
+```
+
+### As a Node module
+
 The Node module exposes two functions:
     - `isValidCommitMessage`, and
     - `validateCommitMessage`
 
 Both are documented in more detail below.
 
-### Quick overview of basic usage
+#### Quick overview of basic usage
 
 ```javascript
 'use strict';
@@ -95,7 +109,7 @@ commitMessageChecker.validateCommitMessage(commitMessage);
  // Returns: { isValid: false, failures: [ 'MISSING_OR_INVALID_COMMIT_TYPE', 'FIRST_LINE_INVALID_FORMAT' ] }
 ```
 
-### `isValidCommitMessage (commitMessage : string) : boolean`
+#### `isValidCommitMessage (commitMessage : string) : boolean`
 
 Check whether a commit message is valid. Returns true if valid, and false if not.
 
@@ -105,7 +119,7 @@ const commitMessageChecker = require('commit-message-checker');
 commitMessageChecker.isValidCommitMessage('[BUG] Fix issue with foo'); // true
 ```
 
-### `validateCommitMessage (commitMessage : string) : { isValid: boolean, failues: Array<string> }`
+#### `validateCommitMessage (commitMessage : string) : { isValid: boolean, failues: Array<string> }`
 
 Check both that a commit message is valid, and if it's not then get a list of reasons why not.
 
@@ -115,7 +129,3 @@ const commitMessageChecker = require('commit-message-checker');
 commitMessageChecker.validateCommitMessage('[BUG] Fix issue with foo'); // { isValid: true, failures: [] }
 commitMessageChecker.validateCommitMessage('Fix issue with foo'); // { isValid: false, failures: [ 'MISSING_OR_INVALID_COMMIT_TYPE', 'FIRST_LINE_INVALID_FORMAT' ] }
 ```
-
-## Using as part of CI
-
-
