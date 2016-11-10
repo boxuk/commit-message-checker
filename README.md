@@ -5,7 +5,7 @@
 A Node module for checking the format of Git commit messages.
 
 This is a highly opinionated tool that doesn't offer any configuration, and is written to validate
-commit messages in the format that we at Box UK use across our organisation.
+commit messages in the format that we, at Box UK, use across our organisation.
 
 This strict format is:
 
