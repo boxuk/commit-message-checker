@@ -31,13 +31,13 @@ Will be considered a valid commit message.
 ### Valid commit types
 
 Commit types should be specified in upper-case and be one of the following values:
-    - BUG
-    - CONFIG
-    - FEATURE
-    - FORMAT
-    - REFACTOR
-    - DOCS
-    - SETUP
+    - **BUG** *(Bug fix)*
+    - **CONFIG** *(Config value changes or updating dependencies / 3rd party libraries)*
+    - **FEATURE** *(Adding a new feature or functionality)*
+    - **FORMAT** *(Change in the format or styling of code)*
+    - **REFACTOR** *(Change the structure of the code without changing its function)*
+    - **DOCS** *(An update not related to code, but to documentation in the repo)*
+    - **SETUP** *(To be used early in project for setting up the initial app)*
 
 If you need to change this, you'll need to update [./lib/commit-types.js][./lib/commit-types.js] with
 the required values.
