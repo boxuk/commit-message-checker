@@ -10,7 +10,7 @@
     "travis-commit-message-checker": "./tools/travis-commit-message-checker.js"
   },
   "author": "Box UK <https://www.boxuk.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint": "^3.9.1",
