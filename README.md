@@ -12,10 +12,10 @@ This strict format is:
 `[J#PROJ-123][BUG] Fix foo issue with bar`
 
 Where:
-    - `J#` refers to the ticket system (in this case, JIRA),
-    - `PROJ-123` refers to the ticket number,
-    - `BUG` refers to the commit type (see *"Valid commit types"* below), and
-    -  `Fix foo issue with bar` is a terse description of the change
+- `J#` refers to the ticket system (in this case, JIRA),
+- `PROJ-123` refers to the ticket number,
+- `BUG` refers to the commit type (see *"Valid commit types"* below), and
+-  `Fix foo issue with bar` is a terse description of the change
 
 A slight variation on this format is where a ticket number cannot be specified, in which case the
 ticketing system and ticket number should be omitted. The commit message should then read:
@@ -31,13 +31,13 @@ Will be considered a valid commit message.
 ### Valid commit types
 
 Commit types should be specified in upper-case and be one of the following values:
-    - **BUG** *(Bug fix)*
-    - **CONFIG** *(Config value changes or updating dependencies / 3rd party libraries)*
-    - **FEATURE** *(Adding a new feature or functionality)*
-    - **FORMAT** *(Change in the format or styling of code)*
-    - **REFACTOR** *(Change the structure of the code without changing its function)*
-    - **DOCS** *(An update not related to code, but to documentation in the repo)*
-    - **SETUP** *(To be used early in project for setting up the initial app)*
+- **BUG** *(Bug fix)*
+- **CONFIG** *(Config value changes or updating dependencies / 3rd party libraries)*
+- **FEATURE** *(Adding a new feature or functionality)*
+- **FORMAT** *(Change in the format or styling of code)*
+- **REFACTOR** *(Change the structure of the code without changing its function)*
+- **DOCS** *(An update not related to code, but to documentation in the repo)*
+- **SETUP** *(To be used early in project for setting up the initial app)*
 
 If you need to change this, you'll need to update [./lib/commit-types.js][./lib/commit-types.js] with
 the required values.
