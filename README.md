@@ -82,6 +82,16 @@ Registrations are not currently supported and will be addressed in J#PROJ-988.
 - node_modules/.bin/travis-commit-message-checker
 ```
 
+#### Appveyor
+
+- Install this package as a dependency of your project
+
+- In your `appeyor.yml` file, include the following in your `test_script` section:
+
+```yml
+- cmd: node_modules/.bin/appveyor-commit-message-checker
+```
+
 ### As a Node module
 
 The Node module exposes two functions:
