@@ -1,0 +1,31 @@
+init:
+    - git config --global core.autocrlf false
+
+environment:
+    matrix:
+        # Test widely used, LTS, and latest versions of Node
+        - nodejs_version: "4.6"
+        - nodejs_version: "6.9"
+        - nodejs_version: "7.1"
+
+platform:
+    - x86
+
+install:
+    - ps: Install-Product node $env:nodejs_version
+    - npm install
+
+cache:
+    node_modules -> package.json
+
+test_script:
+    # Output useful info for debugging
+    - node --version && npm --version
+
+    # Run any configured tests / linting tools
+    - cmd: npm test
+
+    # Verify commit message format
+    - cmd: node ./tools/appveyor-commit-message-checker.js
+
+build: off
