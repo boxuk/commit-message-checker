@@ -39,7 +39,7 @@ Commit types should be specified in upper-case and be one of the following value
 - **DOCS** *(An update not related to code, but to documentation in the repo)*
 - **SETUP** *(To be used early in project for setting up the initial app)*
 
-If you need to change this, you'll need to update [./lib/commit-types.js][./lib/commit-types.js] with
+If you need to change this, you'll need to update [lib/commit-types.js](./lib/commit-types.js) with
 the required values.
 
 ### Multi-line commit messages
