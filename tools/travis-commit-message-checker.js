@@ -5,11 +5,6 @@
 const lib = require('../lib');
 const reporter = require('../reporter').resultFormatter;
 
-// TODO: For PR build we should check all commits in the pull-request, not just the latest one.
-//       This is more problematic than it sounds (though not impossible), and should be addressed seperately.
-
-// Currently we only test PR builds, where we get the HEAD commit.
-
 const isPullRequest = process.env['TRAVIS_PULL_REQUEST'] !== 'false';
 
 if (!isPullRequest) {
@@ -17,21 +12,29 @@ if (!isPullRequest) {
     return;
 }
 
-// Note that we can't use "TRAVIS_COMMIT" here as we'll get a merge commit
-const commitSHA = process.env['TRAVIS_PULL_REQUEST_SHA'];
+const commitSHAs = process.env['TRAVIS_COMMIT_RANGE'];
 
-lib.getCommitMessageFromSHA(commitSHA)
+lib.getCommitMessagesFromSHARange(commitSHAs)
     .catch(error => {
-        // If we failed to get the commit message then fail the build
-        console.error('Failed to retrieve commit message');
+        // If we failed to get the commit messages then fail the build
+        console.error('Failed to retrieve commit messages');
+        console.error(error);
+
         return process.exit(1);
     })
-    .then(commitMessage => {
-        const validation = lib.validateCommitMessage(commitMessage);
+    .then(commitMessages => {
+        const results = commitMessages.map(commitMessage => ({
+            commitMessage: commitMessage,
+            validation: lib.validateCommitMessage(commitMessage)
+        }));
 
-        // If the commit message is invalid, output some helpful information and then exit with non-zero code
-        if (!validation.isValid) {
-            console.error(reporter(commitMessage, validation));
+        const failures = results.filter(result => result.validation.isValid === false);
+
+        console.log(`Tested ${commitMessages.length} commit messages, ${failures.length} were invalid`);
+
+        // If any of the commit message are invalid, output some helpful information and then exit with non-zero code
+        if (failures) {
+            failures.map(failure => console.error(reporter(failure.commitMessage, failure.validation)));
             process.exit(1);
         }
     });
