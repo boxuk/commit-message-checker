@@ -23,7 +23,9 @@ const commitSHA = process.env.APPVEYOR_REPO_COMMIT;
 lib.getCommitMessageFromSHA(commitSHA)
     .catch(error => {
         // If we failed to get the commit message then fail the build
-        throw new Error(`Failed to retrieve commit message: ${error}`);
+        console.error(`Failed to retrieve commit message: ${error}`);
+
+        process.exit(1);
     })
     .then(commitMessage => {
         const validation = lib.validateCommitMessage(commitMessage);
@@ -31,6 +33,7 @@ lib.getCommitMessageFromSHA(commitSHA)
         // If the commit message is invalid, output some helpful information and then exit with non-zero code
         if (!validation.isValid) {
             console.error(reporter(commitMessage, validation));
-            throw new Error('Commit message(s) are invalid');
+
+            process.exit(1);
         }
     });

@@ -18,7 +18,9 @@ const commitSHAs = process.env.TRAVIS_COMMIT_RANGE;
 lib.getCommitMessagesFromSHARange(commitSHAs)
     .catch(error => {
         // If we failed to get the commit messages then fail the build
-        throw new Error(`Failed to retrieve commit messages: ${error}`);
+        console.error(`Failed to retrieve commit messages: ${error}`);
+
+        process.exit(1);
     })
     .then(commitMessages => {
         const results = commitMessages.map(commitMessage => ({
@@ -33,6 +35,9 @@ lib.getCommitMessagesFromSHARange(commitSHAs)
         // If any of the commit message are invalid, output some helpful information and then exit with non-zero code
         if (failures) {
             failures.map(failure => console.error(reporter(failure.commitMessage, failure.validation)));
-            throw new Error(`${failures.length} commit messages are in an invalid format`);
+
+            console.error(`${failures.length} commit messages are in an invalid format`);
+
+            process.exit(1);
         }
     });
