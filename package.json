@@ -4,7 +4,7 @@
   "description": "Tool for checking commit message format",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/**/*.js && eslint *.js"
+    "test": "mocha test/**/*.js && eslint *.js lib/**/*.js reporter/**/*.js tools/**/*.js"
   },
   "bin": {
     "travis-commit-message-checker": "./tools/travis-commit-message-checker.js",

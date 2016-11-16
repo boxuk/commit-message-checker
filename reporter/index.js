@@ -6,12 +6,12 @@ const FAILURE_EXPLANATIONS = require('../lib/failure-reasons').EXPLANATIONS;
  * @param {string} commitMessage
  * @param {{isValid: boolean, failures: Array<string>}} commitMessageCheckResult
  *
- * @returns {string|undefined}
+ * @returns {string}
  */
 function resultFormatter (commitMessage, commitMessageCheckResult) {
     // If the commit message is valid then just return as we have nothing to show
     if (commitMessageCheckResult.isValid) {
-        return;
+        return '';
     }
 
     let output = `========================

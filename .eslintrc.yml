@@ -11,7 +11,7 @@ rules:
   array-bracket-spacing: error
   array-callback-return: error
   arrow-body-style: error
-  arrow-parens: error
+  arrow-parens: 'off'
   arrow-spacing:
     - error
     - after: true
@@ -40,7 +40,7 @@ rules:
   consistent-this: error
   curly: error
   default-case: error
-  dot-location: error
+  dot-location: 'off'
   dot-notation: error
   eol-last: error
   eqeqeq: error
@@ -84,6 +84,7 @@ rules:
     - always
   newline-before-return: error
   newline-per-chained-call: error
+  no-console: 'off'
   no-alert: error
   no-array-constructor: error
   no-bitwise: error
@@ -132,7 +133,7 @@ rules:
   no-param-reassign: error
   no-path-concat: error
   no-plusplus: error
-  no-process-env: error
+  no-process-env: 'off'
   no-process-exit: error
   no-proto: error
   no-prototype-builtins: error
@@ -168,7 +169,7 @@ rules:
   no-useless-return: error
   no-var: error
   no-void: error
-  no-warning-comments: error
+  no-warning-comments: warn
   no-whitespace-before-property: error
   no-with: error
   object-curly-newline: 'off'
