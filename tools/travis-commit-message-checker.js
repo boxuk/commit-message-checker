@@ -33,7 +33,7 @@ lib.getCommitMessagesFromSHARange(commitSHAs)
         console.log(`Tested ${commitMessages.length} commit messages, ${failures.length} were invalid`);
 
         // If any of the commit message are invalid, output some helpful information and then exit with non-zero code
-        if (failures) {
+        if (failures.length) {
             failures.map(failure => console.error(reporter(failure.commitMessage, failure.validation)));
 
             console.error(`${failures.length} commit messages are in an invalid format`);
