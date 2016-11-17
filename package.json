@@ -4,7 +4,8 @@
   "description": "Tool for checking commit message format",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/**/*.js && eslint *.js lib/**/*.js reporter/**/*.js tools/**/*.js"
+    "test": "npm run coverage && eslint *.js lib/**/*.js reporter/**/*.js tools/**/*.js",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec test/**/*.js"
   },
   "bin": {
     "travis-commit-message-checker": "./tools/travis-commit-message-checker.js",
@@ -18,6 +19,7 @@
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.3.0",
     "eslint-plugin-standard": "^2.0.1",
+    "istanbul": "^0.4.5",
     "mocha": "^3.1.2"
   }
 }
