@@ -7,7 +7,6 @@ globals:
   describe: false
   beforeEach: false
 rules:
-  accessor-pairs: error
   array-bracket-spacing: error
   array-callback-return: error
   arrow-body-style: error
