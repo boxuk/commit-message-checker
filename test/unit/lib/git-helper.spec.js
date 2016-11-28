@@ -41,6 +41,21 @@ describe('git helper library', () => {
                     done(error);
                 });
         });
+
+        it('should return a promise that is rejected when the exec command errors', () => {
+            const exec = (commmand, callback) => {
+                const error = 'Some error';
+
+                callback(error);
+            };
+
+            const gitHelper = new GitHelper(exec);
+
+            gitHelper.getCommitMessageFromSHA('0d4d577f797a76b63421afc68b904a16ac817315')
+                .catch(() => {
+                    done();
+                });
+        });
     });
 
     describe('getting the commit messages for the specified SHAs', () => {
@@ -89,6 +104,25 @@ describe('git helper library', () => {
                     done(error);
                 });
         });
+
+        it('should return a promise that rejects when a commit message cannot be retrieved', done => {
+            const exec = (commmand, callback) => {
+                const error = 'Some error';
+
+                callback(error);
+            };
+
+            const gitHelper = new GitHelper(exec);
+            const shas = [
+                '199808430201dea9342dc0406fc34a9ecc7fb1c0',
+                '0d4d577f797a76b63421afc68b904a16ac817315'
+            ];
+
+            gitHelper.getCommitMessagesFromSHAs(shas)
+                .catch(() => {
+                    done();
+                });
+        });
     });
 
     describe('getting the commits SHAs from a range of commits', () => {
@@ -124,6 +158,22 @@ describe('git helper library', () => {
                 .catch(error => {
                     error = error || 'Unknown error';
                     done(error);
+                });
+        });
+
+        it('should return a promise that rejects when unable to retrieve the commit messages', done => {
+            const exec = (commmand, callback) => {
+                const error = 'Some error';
+
+                callback(error);
+            };
+
+            const gitHelper = new GitHelper(exec);
+            const range = '199808430201dea9342dc0406fc34a9ecc7fb1c0..6dc2762f049c8cd80fc3370a7defe06838f8b2bc';
+
+            gitHelper.getCommitSHAsInRange(range)
+                .catch(() => {
+                    done();
                 });
         });
     });
