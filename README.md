@@ -48,8 +48,8 @@ We encourage (but don't enforce) that commit messages use more than one line. Th
 short and terse first line in the above format, along with a more detailed description of the change,
 reasoning behind the change, any notes, etc.
 
-Where a commit message contains multiple lines, we require that a new-line be present between the commit
-message (first-line) and commit description.
+Where a commit message contains multiple lines, we require that a new-line be present between the summary (first-line)
+and commit description.
 
 For example:
 
