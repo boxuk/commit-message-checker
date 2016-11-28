@@ -23,4 +23,14 @@ describe('checking valid commit messages', () => {
             expect(library.isValidCommitMessage(commitMessageWithoutTicket)).to.be.true;
         });
     }
+
+    describe('merge commits', () => {
+        it('should treat "Merge pull request #1 from test/test" as a valid commit message', () => {
+            expect(library.isValidCommitMessage('Merge pull request #1 from test/test')).to.be.true;
+        });
+
+        it(`should treat "Merge branch 'develop' into some-branch" as a valid commit message`, () => {
+            expect(library.isValidCommitMessage(`Merge branch 'develop' into some-branch`)).to.be.true;
+        });
+    });
 });
