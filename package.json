@@ -4,9 +4,8 @@
   "description": "Tool for checking commit message format",
   "main": "index.js",
   "scripts": {
-    "test": "npm run unit-tests && npm run end-to-end-tests && npm run lint",
-    "unit-tests": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec test/unit/**/*.js",
-    "end-to-end-tests": "mocha -R spec test/end-to-end/**/*.js",
+    "test": "npm run unit-tests && npm run lint",
+    "unit-tests": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec test/end-to-end/*.js test/unit/**/*.js",
     "lint": "eslint *.js lib/**/*.js reporter/**/*.js tools/**/*.js"
   },
   "bin": {
