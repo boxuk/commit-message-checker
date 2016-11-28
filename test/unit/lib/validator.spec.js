@@ -5,12 +5,27 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const Validator = require('../../../lib/validator');
+const ValidationResult = require('../../../lib/validation-result');
 
 describe('validator', () => {
+    let alwaysValidRule;
+    let alwaysInvalidRule;
+
+    beforeEach(() => {
+        // A mock rule we can use for testing when the validator handled a valid message
+        alwaysValidRule = {
+            validate: commitMessage => new ValidationResult(commitMessage)
+        };
+
+        alwaysInvalidRule = {
+            validate: commitMessage => new ValidationResult(commitMessage, ['SOME_FAILURE_REASON'])
+        };
+    });
+
     describe('validating a commit message and checking for errors', () => {
         it('should correctly identify a valid commit message', () => {
             const gitHelper = {};
-            const validator = new Validator(gitHelper);
+            const validator = new Validator(gitHelper, [alwaysValidRule]);
 
             const validationResult = validator.validateCommitMessage('[J#PROJ-123][BUG] Fix issue with foo');
 
@@ -19,7 +34,7 @@ describe('validator', () => {
 
         it('should return a validation result with no errors when the commit message is valid', () => {
             const gitHelper = {};
-            const validator = new Validator(gitHelper);
+            const validator = new Validator(gitHelper, [alwaysValidRule]);
 
             const validationResult = validator.validateCommitMessage('[J#PROJ-123][BUG] Fix issue with foo');
 
@@ -29,7 +44,7 @@ describe('validator', () => {
 
         it('should correctly identify an invalid commit message', () => {
             const gitHelper = {};
-            const validator = new Validator(gitHelper);
+            const validator = new Validator(gitHelper, [alwaysInvalidRule]);
 
             const validationResult = validator.validateCommitMessage('An invalid commit message');
 
@@ -38,7 +53,7 @@ describe('validator', () => {
 
         it('should return a validation result with errors when the commit message is invalid', () => {
             const gitHelper = {};
-            const validator = new Validator(gitHelper);
+            const validator = new Validator(gitHelper, [alwaysInvalidRule]);
 
             const validationResult = validator.validateCommitMessage('An invalid commit message');
 
@@ -49,7 +64,7 @@ describe('validator', () => {
     describe('validating a set of commit messages and checking for errors', () => {
         it('should return an array with the correct number of validation results', () => {
             const gitHelper = {};
-            const validator = new Validator(gitHelper);
+            const validator = new Validator(gitHelper, [alwaysValidRule]);
 
             const validationResults = validator.validateCommitMessages([
                 'An invalid commit message',
@@ -60,28 +75,39 @@ describe('validator', () => {
         });
 
         it('should correctly identify valid and invalid commit messages', () => {
+            const fakeRule = {
+                validate: commitMessage => {
+                    // A fake rule that will consider a message valid so long as it doesn't contain the word "invalid"
+                    if (commitMessage.indexOf('invalid') !== -1) {
+                        return new ValidationResult(commitMessage, ['SOME_ERROR']);
+                    }
+
+                    return new ValidationResult(commitMessage);
+                }
+            };
+
             const gitHelper = {};
-            const validator = new Validator(gitHelper);
+            const validator = new Validator(gitHelper, [fakeRule]);
 
             const validationResults = validator.validateCommitMessages([
-                'An invalid commit message',
-                '[J#PROJ-123][BUG] Fix issue with foo'
+                'A valid commit message',
+                'An invalid commit message'
             ]);
 
-            // Check the result that should be invalid
-            expect(validationResults[0].isValid).to.be.false;
-            expect(validationResults[0].failures).not.to.be.empty;
-
             // Check the result that should be valid
-            expect(validationResults[1].isValid).to.be.true;
-            expect(validationResults[1].failures).to.be.empty;
+            expect(validationResults[0].isValid).to.be.true;
+            expect(validationResults[0].failures).to.be.empty;
+
+            // Check the result that should be invalid
+            expect(validationResults[1].isValid).to.be.false;
+            expect(validationResults[1].failures).not.to.be.empty;
         });
     });
 
     describe('checking if a commit message is valid', () => {
         it('should correctly identify a valid commit message', () => {
             const gitHelper = {};
-            const validator = new Validator(gitHelper);
+            const validator = new Validator(gitHelper, [alwaysValidRule]);
 
             const isValid = validator.isValidCommitMessage('[J#PROJ-123][BUG] Fix issue with foo');
 
@@ -90,7 +116,7 @@ describe('validator', () => {
 
         it('should correctly identify an invalid commit message', () => {
             const gitHelper = {};
-            const validator = new Validator(gitHelper);
+            const validator = new Validator(gitHelper, [alwaysInvalidRule]);
 
             const isValid = validator.isValidCommitMessage('An invalid commit message');
 
@@ -106,7 +132,7 @@ describe('validator', () => {
                 })
             };
 
-            const validator = new Validator(gitHelper);
+            const validator = new Validator(gitHelper, [alwaysValidRule]);
 
             validator.validateCommitMessageFromSHA('0d4d577f797a76b63421afc68b904a16ac817315')
                 .then(validationResult => {
@@ -125,7 +151,7 @@ describe('validator', () => {
                 })
             };
 
-            const validator = new Validator(gitHelper);
+            const validator = new Validator(gitHelper, [alwaysValidRule]);
 
             validator.validateCommitMessageFromSHA('0d4d577f797a76b63421afc68b904a16ac817315')
                 .then(validationResult => {
@@ -144,7 +170,7 @@ describe('validator', () => {
                 })
             };
 
-            const validator = new Validator(gitHelper);
+            const validator = new Validator(gitHelper, [alwaysInvalidRule]);
 
             validator.validateCommitMessageFromSHA('0d4d577f797a76b63421afc68b904a16ac817315')
                 .then(validationResult => {
@@ -163,7 +189,7 @@ describe('validator', () => {
                 })
             };
 
-            const validator = new Validator(gitHelper);
+            const validator = new Validator(gitHelper, [alwaysInvalidRule]);
 
             validator.validateCommitMessageFromSHA('0d4d577f797a76b63421afc68b904a16ac817315')
                 .then(validationResult => {
@@ -184,7 +210,7 @@ describe('validator', () => {
                 })
             };
 
-            const validator = new Validator(gitHelper);
+            const validator = new Validator(gitHelper, [alwaysValidRule]);
 
             validator.validateCommitMessagesFromSHAs([
                 '0d4d577f797a76b63421afc68b904a16ac817315',
@@ -211,7 +237,7 @@ describe('validator', () => {
                 })
             };
 
-            const validator = new Validator(gitHelper);
+            const validator = new Validator(gitHelper, [alwaysValidRule]);
             const range = '0d4d577f797a76b63421afc68b904a16ac817315...0d4d577f797a76b63421afc68b904a16ac817315';
 
             validator.validateCommitMessagesFromSHARange(range)
