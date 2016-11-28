@@ -94,11 +94,15 @@ Registrations are not currently supported and will be addressed in J#PROJ-988.
 
 ### As a Node module
 
-The Node module exposes two functions:
-    - `isValidCommitMessage`, and
+The Node module exposes several functions:
     - `validateCommitMessage`
+    - `validateCommitMessages`
+    - `validateCommitMessageFromSHA`
+    - `validateCommitMessagesFromSHAs`
+    - `validateCommitMessagesFromSHARange`
+    - `isValidCommitMessage`
 
-Both are documented in more detail below.
+All are documented in more detail below.
 
 #### Quick overview of basic usage
 
@@ -117,6 +121,21 @@ commitMessageChecker.isValidCommitMessage(commitMessage);
 // valid, as well as any reasons it is invalid (where appropriate)
 commitMessageChecker.validateCommitMessage(commitMessage);
  // Returns: { isValid: false, failures: [ 'MISSING_OR_INVALID_COMMIT_TYPE', 'FIRST_LINE_INVALID_FORMAT' ] }
+
+ // Validate a commit message by it's SHA
+ commitMessageChecker.validateCommitMessageFromSHA('sha8234hdsf')
+    .catch(error => {
+        throw new Error(`Failed to retrieve commit message: ${error}`);
+    })
+    .then(validationResult => {
+        if (validationResult.isValid === true) {
+            // the commit message is valid
+            console.log(`The commit message "${validationResult.commitMessage}" is valid!`);
+        } else {
+            // the commit message is invalid, and will contain an array of failure reasons
+            console.error(validationResult.failures);
+        }
+    });
 ```
 
 #### `isValidCommitMessage (commitMessage : string) : boolean`
@@ -129,13 +148,103 @@ const commitMessageChecker = require('commit-message-checker');
 commitMessageChecker.isValidCommitMessage('[BUG] Fix issue with foo'); // true
 ```
 
-#### `validateCommitMessage (commitMessage : string) : { isValid: boolean, failues: Array<string> }`
+#### `validateCommitMessage (commitMessage : string) : ValidationResult`
 
 Check both that a commit message is valid, and if it's not then get a list of reasons why not.
 
 ```javascript
 const commitMessageChecker = require('commit-message-checker');
 
-commitMessageChecker.validateCommitMessage('[BUG] Fix issue with foo'); // { isValid: true, failures: [] }
-commitMessageChecker.validateCommitMessage('Fix issue with foo'); // { isValid: false, failures: [ 'MISSING_OR_INVALID_COMMIT_TYPE', 'FIRST_LINE_INVALID_FORMAT' ] }
+commitMessageChecker.validateCommitMessage('[BUG] Fix issue with foo'); // { isValid: true, failures: [], commitMessage: '[BUG] Fix issue with foo' }
+commitMessageChecker.validateCommitMessage('Fix issue with foo'); // { isValid: false, failures: [ 'MISSING_OR_INVALID_COMMIT_TYPE', 'FIRST_LINE_INVALID_FORMAT' ], commitMessage: 'Fix issue with foo' }
+```
+
+#### `validateCommitMessages (commitMessages : Array<string>) : Array<ValidationResult>`
+
+Check an array of commit messages for validity. Returns an array of `ValidationResult` objects.
+
+Essentially this is the same as `validateCommitMessage` except it handles deals with arrays of
+messages and results, instead of a single message and result.
+
+```javascript
+const commitMessageChecker = require('commit-message-checker');
+
+commitMessageChecker.validateCommitMessages(['[BUG] Fix issue with foo', '[DOCS] Fix typo in README.md']);
+// Returns:
+// [
+//    { isValid: true, failures: [], commitMessage: '[BUG] Fix issue with foo' }
+//    { isValid: true, failures: [], commitMessage: '[DOCS] Fix typo in README.md' }
+// ]
+```
+
+#### `validateCommitMessageFromSHA (sha : string) : Promise<ValidationResult>`
+
+Check a commit message for validity, using the SHA of the commit.
+
+This is an asynchronous operation that returns a promise. The promise will resolve with
+a `ValidationResult` object. If the commit message cannot be retrieved using the specified
+SHA, then the promise will be rejected with the relevant error.
+
+```javascript
+const commitMessageChecker = require('commit-message-checker');
+
+commitMessageChecker.validateCommitMessageFromSHA('df65141')
+    .catch(error => {
+        console.error('Failed to validate commit message via SHA');
+        throw new Error(error);
+    })
+    .then(validationResult => {
+        if (!validationResult.isValid) {
+            console.error(`Invalid commit message: "${validationResult.commitMessage}"`);
+
+            for (const failure of validationResult.failures) {
+                console.error(failure);
+            }
+        }
+    });
+```
+
+#### `validateCommitMessagesFromSHAs (shas : Array<string>) : Promise<Array<ValidationResult>>`
+
+Check a set of commit messages for validity, using the SHAs of the commits.
+
+This is essentially the same as `validateCommitMessageFromSHA` except it deals with multiple
+SHAs and validation results.
+
+```javascript
+const commitMessageChecker = require('commit-message-checker');
+
+commitMessageChecker.validateCommitMessageFromSHA(['df65141', 'e43fcab'])
+    .catch(error => {
+        console.error('Failed to validate commit messages via SHAs');
+        throw new Error(error);
+    })
+    .then(validationResults => {
+        const failedValidations = validationResults.filter(validationResult => validationResult.isValid === false);
+
+        for (const validationResult of failedValidations) {
+            console.error(`Invalid commit message: "${validationResult.commitMessage}"`);
+        }
+    });
+```
+
+#### `validateCommitMessagesFromSHARange (shaRange : string) : Promise<Array<ValidationResult>>`
+
+Check a set of commit messages for validity, using a range of commit SHAs.
+
+```javascript
+const commitMessageChecker = require('commit-message-checker');
+
+commitMessageChecker.validateCommitMessagesFromSHARange('e43fcab..3ff3209')
+    .catch(error => {
+        console.error('Failed to validate commit messages via SHA range');
+        throw new Error(error);
+    })
+    .then(validationResults => {
+        const failedValidations = validationResults.filter(validationResult => validationResult.isValid === false);
+
+        for (const validationResult of failedValidations) {
+            console.error(`Invalid commit message: "${validationResult.commitMessage}"`);
+        }
+    });
 ```
