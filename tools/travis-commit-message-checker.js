@@ -3,7 +3,7 @@
 'use strict';
 
 const lib = require('../lib');
-const reporter = require('../reporter').resultFormatter;
+const reporter = require('../reporter').table;
 
 const isPullRequest = process.env.TRAVIS_PULL_REQUEST !== 'false';
 
@@ -20,21 +20,10 @@ if (isPullRequest) {
         .then(validationResults => {
             const failures = validationResults.filter(result => result.isValid === false);
 
-            console.log(`Tested ${validationResults.length} commit messages, ${failures.length} were invalid`);
-
             // If any of the commit message are invalid, output some helpful information and then
             // exit with non-zero code
             if (failures.length) {
-                for (const failure of failures) {
-                    console.error(reporter(failure));
-                }
-
-                console.error(`${failures.length} commit messages are in an invalid format`);
-
-                console.error(
-                    'See https://github.com/boxuk/commit-message-checker/blob/master/README.md for more ' +
-                    'details on failure reasons'
-                );
+                reporter(failures);
 
                 process.exit(1);
             }
@@ -53,12 +42,7 @@ if (isPullRequest) {
         .then(validationResult => {
             if (!validationResult.isValid) {
                 // The commit message was invalid, so output some helpful information and then exit with non-zero code
-                console.error(reporter(validationResult));
-
-                console.error(
-                    'See https://github.com/boxuk/commit-message-checker/blob/master/README.md for more ' +
-                    'details on failure reasons'
-                );
+                reporter([validationResult]);
 
                 process.exit(1);
             }
