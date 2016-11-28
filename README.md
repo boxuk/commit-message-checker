@@ -1,5 +1,8 @@
 # Commit message checker
 
+[![Coverage Status](https://coveralls.io/repos/github/boxuk/commit-message-checker/badge.svg?branch=master)](https://coveralls.io/github/boxuk/commit-message-checker?branch=master)
+[![Build Status](https://travis-ci.com/boxuk/commit-message-checker.svg?token=PXYWMazXQJ8xQq72h6EJ&branch=master)](https://travis-ci.com/boxuk/commit-message-checker)
+
 * [Overview](#overview)
   * [Valid commit types](#valid-commit-types)
   * [Failure reasons](#failure-reasons)
