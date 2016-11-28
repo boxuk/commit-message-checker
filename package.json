@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npm run unit-tests && npm run lint",
     "unit-tests": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec test/end-to-end/*.js test/unit/**/*.js",
-    "lint": "eslint *.js lib/**/*.js reporter/**/*.js tools/**/*.js"
+    "lint": "eslint *.js lib/**/*.js reporter/**/*.js tools/**/*.js",
+    "coveralls": "cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js"
   },
   "bin": {
     "travis-commit-message-checker": "./tools/travis-commit-message-checker.js",
@@ -16,6 +17,7 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^3.5.0",
+    "coveralls": "^2.11.15",
     "eslint": "^3.9.1",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.3.0",
