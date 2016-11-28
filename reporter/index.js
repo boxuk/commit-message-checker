@@ -3,14 +3,13 @@
 const FAILURE_EXPLANATIONS = require('../lib/failure-reasons').EXPLANATIONS;
 
 /**
- * @param {string} commitMessage
- * @param {{isValid: boolean, failures: Array<string>}} commitMessageCheckResult
+ * @param {ValidationResult} validationResult
  *
  * @returns {string}
  */
-function resultFormatter (commitMessage, commitMessageCheckResult) {
+function resultFormatter (validationResult) {
     // If the commit message is valid then just return as we have nothing to show
-    if (commitMessageCheckResult.isValid) {
+    if (validationResult.isValid) {
         return '';
     }
 
@@ -20,14 +19,14 @@ The following commit message failed validation. The reasons why it failed ` +
 `are shown below the commit message.
 
 """
-${commitMessage}
+${validationResult.commitMessage}
 """
 
 Failure reasons:
 ================
         `;
 
-    for (const failure of commitMessageCheckResult.failures) {
+    for (const failure of validationResult.failures) {
         const explanation = FAILURE_EXPLANATIONS[failure];
 
         output = output += `\n- "${failure}": ${explanation}\n`;

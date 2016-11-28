@@ -13,26 +13,24 @@ if (isPullRequest) {
     // For the commit range, we need to get all commits since the base branch, up to the current HEAD.
     const commitRange = `${baseBranch}..HEAD`;
 
-    lib.getCommitMessagesFromSHARange(commitRange)
+    lib.validateCommitMessageFromSHARange(commitRange)
         .catch(error => {
             // If we failed to get the commit messages then fail the build
             console.error(`Failed to retrieve commit messages: ${error}`);
 
             process.exit(1);
         })
-        .then(commitMessages => {
-            const results = commitMessages.map(commitMessage => ({
-                validation: lib.validateCommitMessage(commitMessage),
-                commitMessage: commitMessage
-            }));
+        .then(results => {
+            const failures = results.filter(result => result.isValid === false);
 
-            const failures = results.filter(result => result.validation.isValid === false);
+            console.log(`Tested ${results.length} commit messages, ${failures.length} were invalid`);
 
-            console.log(`Tested ${commitMessages.length} commit messages, ${failures.length} were invalid`);
-
-            // If any of the commit message are invalid, output some helpful information and then exit with non-zero code
+            // If any of the commit message are invalid, output some helpful information and then
+            // exit with non-zero code
             if (failures.length) {
-                failures.map(failure => console.error(reporter(failure.commitMessage, failure.validation)));
+                for (const failure of failures) {
+                    console.error(reporter(failure));
+                }
 
                 console.error(`${failures.length} commit messages are in an invalid format`);
 
@@ -44,21 +42,20 @@ if (isPullRequest) {
 
     const commitSHA = process.env.APPVEYOR_REPO_COMMIT;
 
-    lib.getCommitMessageFromSHA(commitSHA)
+    lib.validateCommitMessageFromSHA(commitSHA)
         .catch(error => {
             // If we failed to get the commit message then fail the build
             console.error(`Failed to retrieve commit message: ${error}`);
 
             process.exit(1);
         })
-        .then(commitMessage => {
-            const validation = lib.validateCommitMessage(commitMessage);
-
-            if (!validation.isValid) {
+        .then(result => {
+            if (!result.isValid) {
                 // The commit message was invalid, so output some helpful information and then exit with non-zero code
-                console.error(reporter(commitMessage, validation));
+                console.error(reporter(result));
 
                 process.exit(1);
             }
         });
+
 }

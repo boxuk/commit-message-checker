@@ -23,7 +23,7 @@ rules:
     - 1tbs
   callback-return: error
   camelcase: error
-  class-methods-use-this: error
+  class-methods-use-this: 'off'
   comma-dangle: 'off'
   comma-spacing:
     - error
@@ -156,7 +156,7 @@ rules:
   no-throw-literal: error
   no-trailing-spaces: error
   no-undef-init: error
-  no-underscore-dangle: error
+  no-underscore-dangle: 'off'
   no-unmodified-loop-condition: error
   no-unneeded-ternary: error
   no-use-before-define: error
