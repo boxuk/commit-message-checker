@@ -42,6 +42,19 @@ Commit types should be specified in upper-case and be one of the following value
 If you need to change this, you'll need to update [lib/commit-types.js](./lib/commit-types.js) with
 the required values.
 
+### Failure reasons
+
+Should a commit message fail validation, one or more failure reasons will be included in the `ValidationResult` that
+is returned.
+
+These failure reasons can be one or more of:
+
+| Reason                         | Explanation                                                                                     |
+|--------------------------------|-------------------------------------------------------------------------------------------------|
+| NO_NEW_LINE_AFTER_FIRST_LINE   | For multi-line commit messages, there should be a new-line between the summary and description  |
+| MISSING_OR_INVALID_COMMIT_TYPE | The commit summary is missing a commit type (documented above), or the one specified is invalid |
+| FIRST_LINE_INVALID_FORMAT      | The first line (the summary) is in an invalid format                                            |
+
 ### Multi-line commit messages
 
 We encourage (but don't enforce) that commit messages use more than one line. This is to allow for a
