@@ -31,6 +31,11 @@ if (isPullRequest) {
 
                 console.error(`${failures.length} commit messages are in an invalid format`);
 
+                console.error(
+                    'See https://github.com/boxuk/commit-message-checker/blob/master/README.md for more ' +
+                    'details on failure reasons'
+                );
+
                 process.exit(1);
             }
         });
@@ -49,6 +54,11 @@ if (isPullRequest) {
             if (!validationResult.isValid) {
                 // The commit message was invalid, so output some helpful information and then exit with non-zero code
                 console.error(reporter(validationResult));
+
+                console.error(
+                    'See https://github.com/boxuk/commit-message-checker/blob/master/README.md for more ' +
+                    'details on failure reasons'
+                );
 
                 process.exit(1);
             }
