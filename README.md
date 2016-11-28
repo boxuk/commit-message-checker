@@ -1,5 +1,17 @@
 # Commit message checker
 
+* [Overview](#overview)
+  * [Valid commit types](#valid-commit-types)
+  * [Failure reasons](#failure-reasons)
+  * [Multi-line commit messages](#multi-line-commit-messages)
+* [Usage](#usage)
+  * [As part of CI](#as-part-of-ci)
+    * [Travis](#travis)
+    * [Appveyor](#appveyor)
+  * [As a Node module](#as-a-node-module)
+    * [Quick overview of basic usage](#quick-overview-of-basic-usage)
+    * [API documentation](#api-documentation)
+
 ## Overview
 
 A Node module for checking the format of Git commit messages.
@@ -151,7 +163,9 @@ commitMessageChecker.validateCommitMessage(commitMessage);
     });
 ```
 
-#### `isValidCommitMessage (commitMessage : string) : boolean`
+#### API documentation
+
+##### `isValidCommitMessage (commitMessage : string) : boolean`
 
 Check whether a commit message is valid. Returns true if valid, and false if not.
 
@@ -161,7 +175,7 @@ const commitMessageChecker = require('commit-message-checker');
 commitMessageChecker.isValidCommitMessage('[BUG] Fix issue with foo'); // true
 ```
 
-#### `validateCommitMessage (commitMessage : string) : ValidationResult`
+##### `validateCommitMessage (commitMessage : string) : ValidationResult`
 
 Check both that a commit message is valid, and if it's not then get a list of reasons why not.
 
@@ -172,7 +186,7 @@ commitMessageChecker.validateCommitMessage('[BUG] Fix issue with foo'); // { isV
 commitMessageChecker.validateCommitMessage('Fix issue with foo'); // { isValid: false, failures: [ 'MISSING_OR_INVALID_COMMIT_TYPE', 'FIRST_LINE_INVALID_FORMAT' ], commitMessage: 'Fix issue with foo' }
 ```
 
-#### `validateCommitMessages (commitMessages : Array<string>) : Array<ValidationResult>`
+##### `validateCommitMessages (commitMessages : Array<string>) : Array<ValidationResult>`
 
 Check an array of commit messages for validity. Returns an array of `ValidationResult` objects.
 
@@ -190,7 +204,7 @@ commitMessageChecker.validateCommitMessages(['[BUG] Fix issue with foo', '[DOCS]
 // ]
 ```
 
-#### `validateCommitMessageFromSHA (sha : string) : Promise<ValidationResult>`
+##### `validateCommitMessageFromSHA (sha : string) : Promise<ValidationResult>`
 
 Check a commit message for validity, using the SHA of the commit.
 
@@ -217,7 +231,7 @@ commitMessageChecker.validateCommitMessageFromSHA('df65141')
     });
 ```
 
-#### `validateCommitMessagesFromSHAs (shas : Array<string>) : Promise<Array<ValidationResult>>`
+##### `validateCommitMessagesFromSHAs (shas : Array<string>) : Promise<Array<ValidationResult>>`
 
 Check a set of commit messages for validity, using the SHAs of the commits.
 
@@ -241,7 +255,7 @@ commitMessageChecker.validateCommitMessageFromSHA(['df65141', 'e43fcab'])
     });
 ```
 
-#### `validateCommitMessagesFromSHARange (shaRange : string) : Promise<Array<ValidationResult>>`
+##### `validateCommitMessagesFromSHARange (shaRange : string) : Promise<Array<ValidationResult>>`
 
 Check a set of commit messages for validity, using a range of commit SHAs.
 
