@@ -1,0 +1,28 @@
+{
+  "name": "commit-message-checker",
+  "version": "1.0.0",
+  "description": "Tool for checking commit message format",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run unit-tests && npm run lint",
+    "unit-tests": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec test/end-to-end/*.js test/unit/**/*.js",
+    "lint": "eslint *.js lib/**/*.js reporter/**/*.js tools/**/*.js"
+  },
+  "bin": {
+    "travis-commit-message-checker": "./tools/travis-commit-message-checker.js",
+    "appveyor-commit-message-checker": "./tools/appveyor-commit-message-checker.js"
+  },
+  "author": "Box UK <https://www.boxuk.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.9.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.3.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.2",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0"
+  }
+}
