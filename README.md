@@ -108,12 +108,12 @@ Registrations are not currently supported and will be addressed in J#PROJ-988.
 ### As a Node module
 
 The Node module exposes several functions:
-    - `validateCommitMessage`
-    - `validateCommitMessages`
-    - `validateCommitMessageFromSHA`
-    - `validateCommitMessagesFromSHAs`
-    - `validateCommitMessagesFromSHARange`
-    - `isValidCommitMessage`
+- `validateCommitMessage`
+- `validateCommitMessages`
+- `validateCommitMessageFromSHA`
+- `validateCommitMessagesFromSHAs`
+- `validateCommitMessagesFromSHARange`
+- `isValidCommitMessage`
 
 All are documented in more detail below.
 
