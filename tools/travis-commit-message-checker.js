@@ -10,7 +10,7 @@ const isPullRequest = process.env.TRAVIS_PULL_REQUEST !== 'false';
 if (isPullRequest) {
     const commitRange = process.env.TRAVIS_COMMIT_RANGE;
 
-    lib.validateCommitMessageFromSHARange(commitRange)
+    lib.validateCommitMessagesFromSHARange(commitRange)
         .catch(error => {
             // If we failed to get the commit messages then fail the build
             console.error(`Failed to retrieve commit messages: ${error}`);

@@ -13,7 +13,7 @@ if (isPullRequest) {
     // For the commit range, we need to get all commits since the base branch, up to the current HEAD.
     const commitRange = `${baseBranch}..HEAD`;
 
-    lib.validateCommitMessageFromSHARange(commitRange)
+    lib.validateCommitMessagesFromSHARange(commitRange)
         .catch(error => {
             // If we failed to get the commit messages then fail the build
             console.error(`Failed to retrieve commit messages: ${error}`);
