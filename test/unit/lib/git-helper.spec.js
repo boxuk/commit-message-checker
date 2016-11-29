@@ -22,7 +22,7 @@ describe('git helper library', () => {
         });
 
         it('should return a promise that is resolved with the stdout of child_process.exec', done => {
-            const exec = (commmand, callback) => {
+            const exec = function (commmand, callback) {
                 const error = null;
                 const stdout = '[BUG] Some commit message';
 
@@ -37,13 +37,12 @@ describe('git helper library', () => {
                     done();
                 })
                 .catch(error => {
-                    error = error || 'Unknown error';
-                    done(error);
+                    done(error || 'Unknown error');
                 });
         });
 
         it('should return a promise that is rejected when the exec command errors', done => {
-            const exec = (commmand, callback) => {
+            const exec = function (commmand, callback) {
                 const error = 'Some error';
 
                 callback(error);
@@ -76,7 +75,7 @@ describe('git helper library', () => {
         });
 
         it('should return a promise that resolves with an array of commit messages', done => {
-            const exec = (commmand, callback) => {
+            const exec = function (commmand, callback) {
                 const error = null;
                 const stdout = '[BUG] Some commit message';
 
@@ -100,13 +99,12 @@ describe('git helper library', () => {
                     done();
                 })
                 .catch(error => {
-                    error = error || 'Unknown error';
-                    done(error);
+                    done(error || 'Unknown error');
                 });
         });
 
         it('should return a promise that rejects when a commit message cannot be retrieved', done => {
-            const exec = (commmand, callback) => {
+            const exec = function (commmand, callback) {
                 const error = 'Some error';
 
                 callback(error);
@@ -137,7 +135,7 @@ describe('git helper library', () => {
         });
 
         it('should return a promise that resolves with an array of the commit SHAs', done => {
-            const exec = (commmand, callback) => {
+            const exec = function (commmand, callback) {
                 const error = null;
                 const stdout = '0d4d577f797a76b63421afc68b904a16ac817315\n6dc2762f049c8cd80fc3370a7defe06838f8b2bc';
 
@@ -156,13 +154,12 @@ describe('git helper library', () => {
                     done();
                 })
                 .catch(error => {
-                    error = error || 'Unknown error';
-                    done(error);
+                    done(error || 'Unknown error');
                 });
         });
 
         it('should return a promise that rejects when unable to retrieve the commit messages', done => {
-            const exec = (commmand, callback) => {
+            const exec = function (commmand, callback) {
                 const error = 'Some error';
 
                 callback(error);
