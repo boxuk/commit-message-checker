@@ -13,6 +13,7 @@
   * [As part of CI](#as-part-of-ci)
     * [Travis](#travis)
     * [Appveyor](#appveyor)
+  * [As a commit hook](#as-a-commit-hook)
   * [As a Node module](#as-a-node-module)
     * [Quick overview of basic usage](#quick-overview-of-basic-usage)
     * [API documentation](#api-documentation)
@@ -121,6 +122,32 @@ Registrations are not currently supported and will be addressed in J#PROJ-988.
 ```yml
 - cmd: node_modules/.bin/appveyor-commit-message-checker
 ```
+
+### As a commit hook
+
+A `commit-msg` hook is provided which you can setup to run in your development environment, to help catch invalid commit
+messages as they happen.
+
+This is intended to be setup in addition to, and definitely not instead of, checks that run [as part of CI](#as-part-of-ci).
+It's primary purpose is to shorten the feedback time between commiting something, and finding out that the commit
+message is invalid. The alternative being that you don't find out until it fails on CI, which could take a frustrating
+amount of time.
+
+To use the commit hook, copy or symlink the file to `.git/hooks/commit-msg` within your project. i.e. run:
+
+```bash
+ln -s -f ../../node_modules/.bin/commit-message-hook .git/hooks/commit-msg
+```
+
+After doing so, all commits you make will be validated.
+
+If any commit message fails, you'll be shown a failure report detailing the reason(s) why the message isn't valid.
+
+However, this **will not block the commit** from happening.
+We want to limit impact on developer workflow as much as possible, and so this will notify you that a commit message is
+invalid, but the onus will be on you to go back and correct it. We've made this decision so as not to prevent you
+making a series of quick commits as you work, with the intention of going back and fixing up / re-wording commits prior
+to pushing to your SCM.
 
 ### As a Node module
 

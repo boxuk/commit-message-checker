@@ -10,7 +10,8 @@
   },
   "bin": {
     "travis-commit-message-checker": "./tools/travis-commit-message-checker.js",
-    "appveyor-commit-message-checker": "./tools/appveyor-commit-message-checker.js"
+    "appveyor-commit-message-checker": "./tools/appveyor-commit-message-checker.js",
+    "commit-message-hook": "./tools/commit-message-hook.js"
   },
   "author": "Box UK <https://www.boxuk.com>",
   "license": "MIT",
