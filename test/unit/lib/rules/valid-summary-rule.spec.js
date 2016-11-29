@@ -7,13 +7,14 @@ chai.use(require('sinon-chai'));
 
 const expect = chai.expect;
 
+const CommitMessageParser = require('../../../../lib/commit-message-parser');
 const ValidSummaryRule = require('../../../../lib/rules/valid-summary-rule');
 
 describe('Rules: ValidSummaryRule', () => {
     let validSummaryRule;
 
     beforeEach(() => {
-        validSummaryRule = new ValidSummaryRule();
+        validSummaryRule = new ValidSummaryRule(new CommitMessageParser());
     });
 
     describe('commit message: "Some commit message"', () => {

@@ -8,13 +8,14 @@ chai.use(require('sinon-chai'));
 const expect = chai.expect;
 
 const COMMIT_TYPES = require('../../../../lib/commit-types').COMMIT_TYPES;
+const CommitMessageParser = require('../../../../lib/commit-message-parser');
 const HasValidCommitTypeRule = require('../../../../lib/rules/has-valid-commit-type-rule');
 
 describe('Rules: HasValidCommitTypeRule', () => {
     let hasValidCommitTypeRule;
 
     beforeEach(() => {
-        hasValidCommitTypeRule = new HasValidCommitTypeRule();
+        hasValidCommitTypeRule = new HasValidCommitTypeRule(new CommitMessageParser());
     });
 
     describe('a commit message without type', () => {

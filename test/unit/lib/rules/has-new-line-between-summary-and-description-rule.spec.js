@@ -7,6 +7,7 @@ chai.use(require('sinon-chai'));
 
 const expect = chai.expect;
 
+const CommitMessageParser = require('../../../../lib/commit-message-parser');
 const HasNewLineBetweenSummaryAndDescriptionRule = require(
     '../../../../lib/rules/has-new-line-between-summary-and-description-rule'
 );
@@ -15,7 +16,9 @@ describe('Rules: HasNewLineBetweenSummaryAndDescriptionRule', () => {
     let hasNewLineBetweenSummaryAndDescriptionRule;
 
     beforeEach(() => {
-        hasNewLineBetweenSummaryAndDescriptionRule = new HasNewLineBetweenSummaryAndDescriptionRule();
+        hasNewLineBetweenSummaryAndDescriptionRule = new HasNewLineBetweenSummaryAndDescriptionRule(
+            new CommitMessageParser()
+        );
     });
 
     describe('single-line commit messages', () => {
