@@ -1,6 +1,9 @@
 # Commit message checker
 
 [![Build Status](https://travis-ci.com/boxuk/commit-message-checker.svg?token=PXYWMazXQJ8xQq72h6EJ&branch=master)](https://travis-ci.com/boxuk/commit-message-checker)
+[![Code Climate](https://codeclimate.com/github/boxuk/commit-message-checker/badges/gpa.svg)](https://codeclimate.com/github/boxuk/commit-message-checker)
+[![Test Coverage](https://codeclimate.com/github/boxuk/commit-message-checker/badges/coverage.svg)](https://codeclimate.com/github/boxuk/commit-message-checker/coverage)
+[![Issue Count](https://codeclimate.com/github/boxuk/commit-message-checker/badges/issue_count.svg)](https://codeclimate.com/github/boxuk/commit-message-checker)
 
 * [Overview](#overview)
   * [Valid commit types](#valid-commit-types)
