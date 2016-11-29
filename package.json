@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run unit-tests && npm run lint",
-    "unit-tests": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec test/end-to-end/*.js test/unit/**/*.js",
+    "unit-tests": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec test/end-to-end/*.js test/unit/lib/*.js test/unit/lib/**/*.js",
     "lint": "eslint *.js lib/**/*.js reporter/**/*.js tools/**/*.js"
   },
   "bin": {
