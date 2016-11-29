@@ -1,9 +1,23 @@
-# Commit message checker
+<p align="center"><a href="https://www.boxuk.com"><img src="https://s.gravatar.com/avatar/ecc7a149e4a6fc92c0f2b37a0d121877?s=150" width="150" alt="Box UK" /></a></p>
+<p align="center">A strict and opinionated set of tools for validating commit messages</p>
+<p align="center">
+    <a href="https://travis-ci.com/boxuk/commit-message-checker">
+        <img src="https://travis-ci.com/boxuk/commit-message-checker.svg?token=PXYWMazXQJ8xQq72h6EJ&branch=master" alt="Travis Build Status" />
+    </a>
+    <a href="https://codeclimate.com/github/boxuk/commit-message-checker">
+        <img src="https://codeclimate.com/github/boxuk/commit-message-checker/badges/gpa.svg" alt="Code Climate" />
+    </a>
+    <a href="https://codeclimate.com/github/boxuk/commit-message-checker/coverage">
+        <img src="https://codeclimate.com/github/boxuk/commit-message-checker/badges/coverage.svg" alt="Test Coverage" />
+    </a>
+    <a href="https://codeclimate.com/github/boxuk/commit-message-checker">
+        <img src="https://codeclimate.com/github/boxuk/commit-message-checker/badges/issue_count.svg" alt="Issue Count" />
+    </a>
+</p>
 
-[![Build Status](https://travis-ci.com/boxuk/commit-message-checker.svg?token=PXYWMazXQJ8xQq72h6EJ&branch=master)](https://travis-ci.com/boxuk/commit-message-checker)
-[![Code Climate](https://codeclimate.com/github/boxuk/commit-message-checker/badges/gpa.svg)](https://codeclimate.com/github/boxuk/commit-message-checker)
-[![Test Coverage](https://codeclimate.com/github/boxuk/commit-message-checker/badges/coverage.svg)](https://codeclimate.com/github/boxuk/commit-message-checker/coverage)
-[![Issue Count](https://codeclimate.com/github/boxuk/commit-message-checker/badges/issue_count.svg)](https://codeclimate.com/github/boxuk/commit-message-checker)
+---
+
+# Commit message checker
 
 * [Overview](#overview)
   * [Valid commit types](#valid-commit-types)
