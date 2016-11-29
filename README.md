@@ -1,4 +1,4 @@
-<p align="center"><a href="https://www.boxuk.com"><img src="https://avatars0.githubusercontent.com/u/809504?v=3&s=150" alt="Box UK" /></a></p>
+<p align="center"><a href="https://www.boxuk.com"><img src="https://s.gravatar.com/avatar/ecc7a149e4a6fc92c0f2b37a0d121877?s=150" width="150" alt="Box UK" /></a></p>
 <p align="center">A strict and opinionated set of tools for validating commit messages</p>
 <p align="center">
     <a href="https://travis-ci.com/boxuk/commit-message-checker">
