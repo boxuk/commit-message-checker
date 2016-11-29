@@ -1,9 +1,6 @@
 'use strict';
 
 const chai = require('chai');
-const sinon = require('sinon');
-
-chai.use(require('sinon-chai'));
 
 const expect = chai.expect;
 
@@ -104,11 +101,9 @@ describe('validator', () => {
     describe('validating a commit message for a specified SHA', () => {
         it('should correctly identify a valid commit message', done => {
             const gitHelper = {
-                getCommitMessageFromSHA: () => {
-                    return new Promise((resolve, reject) => {
-                        resolve('[J#PROJ-123][BUG] Fix issue with foo');
-                    });
-                }
+                getCommitMessageFromSHA: () => new Promise(resolve => {
+                    resolve('[J#PROJ-123][BUG] Fix issue with foo');
+                })
             };
 
             const validator = new Validator(gitHelper);
@@ -119,18 +114,15 @@ describe('validator', () => {
                     done();
                 })
                 .catch(error => {
-                    error = error || 'Unknown error';
-                    done(error);
+                    done(error || 'Unknown error');
                 });
         });
 
-        it('should resolve with a validation result with no errors when the commit message is valid', () => {
+        it('should resolve with a validation result with no errors when the commit message is valid', done => {
             const gitHelper = {
-                getCommitMessageFromSHA: () => {
-                    return new Promise((resolve, reject) => {
-                        resolve('[J#PROJ-123][BUG] Fix issue with foo');
-                    });
-                }
+                getCommitMessageFromSHA: () => new Promise(resolve => {
+                    resolve('[J#PROJ-123][BUG] Fix issue with foo');
+                })
             };
 
             const validator = new Validator(gitHelper);
@@ -141,18 +133,15 @@ describe('validator', () => {
                     done();
                 })
                 .catch(error => {
-                    error = error || 'Unknown error';
-                    done(error);
+                    done(error || 'Unknown error');
                 });
         });
 
         it('should correctly identify an invalid commit message', done => {
             const gitHelper = {
-                getCommitMessageFromSHA: () => {
-                    return new Promise((resolve, reject) => {
-                        resolve('An invalid commit message');
-                    });
-                }
+                getCommitMessageFromSHA: () => new Promise(resolve => {
+                    resolve('An invalid commit message');
+                })
             };
 
             const validator = new Validator(gitHelper);
@@ -163,18 +152,15 @@ describe('validator', () => {
                     done();
                 })
                 .catch(error => {
-                    error = error || 'Unknown error';
-                    done(error);
+                    done(error || 'Unknown error');
                 });
         });
 
-        it('should resolve with a validation result with errors when the commit message is invalid', () => {
+        it('should resolve with a validation result with errors when the commit message is invalid', done => {
             const gitHelper = {
-                getCommitMessageFromSHA: () => {
-                    return new Promise((resolve, reject) => {
-                        resolve('An invalid commit message');
-                    });
-                }
+                getCommitMessageFromSHA: () => new Promise(resolve => {
+                    resolve('An invalid commit message');
+                })
             };
 
             const validator = new Validator(gitHelper);
@@ -185,8 +171,7 @@ describe('validator', () => {
                     done();
                 })
                 .catch(error => {
-                    error = error || 'Unknown error';
-                    done(error);
+                    done(error || 'Unknown error');
                 });
         });
     });
@@ -194,11 +179,9 @@ describe('validator', () => {
     describe('validating commit messages for a specified set of SHAs', () => {
         it('should resolve with an array with the correct number of validation results', done => {
             const gitHelper = {
-                getCommitMessageFromSHA: () => {
-                    return new Promise((resolve, reject) => {
-                        resolve('[J#PROJ-123][BUG] Fix issue with foo');
-                    });
-                }
+                getCommitMessageFromSHA: () => new Promise(resolve => {
+                    resolve('[J#PROJ-123][BUG] Fix issue with foo');
+                })
             };
 
             const validator = new Validator(gitHelper);
@@ -212,8 +195,7 @@ describe('validator', () => {
                     done();
                 })
                 .catch(error => {
-                    error = error || 'Unknown error';
-                    done(error);
+                    done(error || 'Unknown error');
                 });
         });
     });
@@ -221,14 +203,12 @@ describe('validator', () => {
     describe('validating commit messages for a range of commit SHAs', () => {
         it('should resolve with an array with the correct number of validation results', done => {
             const gitHelper = {
-                getCommitMessagesFromSHARange: () => {
-                    return new Promise((resolve, reject) => {
-                        resolve([
-                            '[J#PROJ-123][BUG] Fix issue with foo',
-                            'An invalid commit message'
-                        ]);
-                    });
-                }
+                getCommitMessagesFromSHARange: () => new Promise(resolve => {
+                    resolve([
+                        '[J#PROJ-123][BUG] Fix issue with foo',
+                        'An invalid commit message'
+                    ]);
+                })
             };
 
             const validator = new Validator(gitHelper);
@@ -240,8 +220,7 @@ describe('validator', () => {
                     done();
                 })
                 .catch(error => {
-                    error = error || 'Unknown error';
-                    done(error);
+                    done(error || 'Unknown error');
                 });
         });
     });

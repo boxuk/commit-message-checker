@@ -42,7 +42,7 @@ describe('git helper library', () => {
                 });
         });
 
-        it('should return a promise that is rejected when the exec command errors', () => {
+        it('should return a promise that is rejected when the exec command errors', done => {
             const exec = (commmand, callback) => {
                 const error = 'Some error';
 
