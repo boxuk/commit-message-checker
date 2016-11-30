@@ -28,3 +28,7 @@ test_script:
     - cmd: node ./tools/appveyor-commit-message-checker.js
 
 build: off
+
+after_test:
+    - pip install codecov
+    - codecov -f coverage/lcov.info
