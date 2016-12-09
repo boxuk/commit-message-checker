@@ -26,6 +26,8 @@
 * [Usage](#usage)
   * [As part of CI](#as-part-of-ci)
     * [Travis](#travis)
+        * [Node projects](#for-node-projects)
+        * [Non-Node projects](#for-non-node-projects)
     * [Appveyor](#appveyor)
   * [As a commit hook](#as-a-commit-hook)
   * [As a Node module](#as-a-node-module)
@@ -119,12 +121,41 @@ Registrations are not currently supported and will be addressed in J#PROJ-988.
 
 #### Travis
 
-- Install this package as a dependency of your project
+##### For Node projects
+
+- Install this package as a dependency of your project:
+
+`npm install --save-dev commit-message-checker`
 
 - In your `.travis.yml` file, include the following in your `script` section:
 
 ```yml
 - node_modules/.bin/travis-commit-message-checker
+```
+
+##### For non-Node projects
+
+This is a Node module, and as such requires Node to run (v4+). If you're building a non-Node project on Travis, then
+you're in luck!
+
+Travis build images include Node by default, though it's a very old version (v0.10.x) that won't work with this library.
+However, it also includes Node Version Manager (`nvm`) so you can install the specific version of Node required.
+
+Therefore, for non-Node projects on Travis you can run this tool by adding the following to your `.travis.yml` file:
+
+```yml
+install:
+    # Install current LTS version of Node, and install commit-message-checker as a dependency
+    - nvm install 6.9 && npm install commit-message-checker@^1.0.0
+
+script:
+    # Run the commit message checker as part of the test scripts
+    - ./node_modules/.bin/travis-commit-message-checker
+
+# Optional: Add the "node_modules" directory to the Travis build cache so as to speed up subsequent builds
+cache:
+    directories:
+        - node_modules
 ```
 
 #### Appveyor
