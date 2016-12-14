@@ -56,11 +56,15 @@ ticketing system and ticket number should be omitted. The commit message should 
 
 `[BUG] Fix foo issue with bar`
 
-Finally, we don't subject merge commits to the same validation checks. i.e. validating the commit message:
+Finally, we don't subject merge or revert commits to the same validation checks. i.e. when validating the commit messages:
 
 `Merge pull request #123 from boxuk/develop`
 
-Will be considered a valid commit message.
+and
+
+`Revert "[J#PROJ-123][BUG] Fix issue with foo"`
+
+Both will be considered valid commit messages.
 
 ### Valid commit types
 
