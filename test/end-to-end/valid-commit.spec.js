@@ -30,4 +30,10 @@ describe('checking valid commit messages', () => {
             expect(library.isValidCommitMessage(`Merge branch 'develop' into some-branch`)).to.be.true;
         });
     });
+
+    describe('reverted commits', () => {
+        it(`should treat 'Revert "[J#PROJ-123][FEATURE] Adds foo"' as a valid commit message`, () => {
+            expect(library.isValidCommitMessage('Revert "[J#PROJ-123][FEATURE] Adds foo"')).to.be.true;
+        });
+    });
 });
