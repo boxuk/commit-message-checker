@@ -3,12 +3,20 @@
 'use strict';
 
 const lib = require('../lib');
+const config = require('../lib/config');
 const reporter = require('../reporter').table;
 
 const isPullRequest = process.env.TRAVIS_PULL_REQUEST !== 'false';
 
 if (isPullRequest) {
+    const pullRequestBranch = process.env.TRAVIS_PULL_REQUEST_BRANCH;
     const commitRange = process.env.TRAVIS_COMMIT_RANGE;
+
+    // Check if we should ignore pull requests from this branch
+    if (config.ignorePullRequestsFromBranches.indexOf(pullRequestBranch) !== -1) {
+        console.info('Not checking commit messages as pull requests from this branch are set to be ignored');
+        return;
+    }
 
     lib.validateCommitMessagesFromSHARange(commitRange)
         .catch(error => {

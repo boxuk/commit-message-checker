@@ -3,12 +3,26 @@
 'use strict';
 
 const lib = require('../lib');
+const config = require('../lib/config');
 const reporter = require('../reporter').table;
 
 const isPullRequest = Boolean(process.env.APPVEYOR_PULL_REQUEST_NUMBER);
 
 if (isPullRequest) {
     const baseBranch = process.env.APPVEYOR_REPO_BRANCH;
+
+    // TODO: get pull request branch, not exposed through app veyor env vars
+    const exec = require('child_process').exec;
+
+    // Get SHA of PR commit, which is 1 up from the HEAD (as HEAD will be a merge commit)
+    exec('git rev-parse HEAD~1', (err, sha) => {
+        // Get branches commit belongs to
+        exec(`git branch --contains ${sha}`, (err, stdout) => {
+            const branches = stdout.split('\n');
+
+            console.info(branches);
+        });
+    });
 
     // For the commit range, we need to get all commits since the base branch, up to the current HEAD.
     const commitRange = `${baseBranch}..HEAD`;

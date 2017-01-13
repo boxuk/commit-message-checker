@@ -22,7 +22,7 @@ test_script:
     - node --version && npm --version
 
     # Run any configured tests / linting tools
-    - cmd: npm test
+    # - cmd: npm test
 
     # Verify commit message format
     - cmd: node ./tools/appveyor-commit-message-checker.js
