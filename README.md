@@ -19,6 +19,8 @@
 
 # Commit message checker
 
+## This repository is no longer maintained.
+
 * [Overview](#overview)
   * [Valid commit types](#valid-commit-types)
   * [Failure reasons](#failure-reasons)
